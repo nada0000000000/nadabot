@@ -76,6 +76,7 @@
             background: var(--gradient-1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .nav-button {
@@ -85,6 +86,11 @@
             color: white;
             font-weight: 600;
             text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
         }
 
         .hero {
@@ -98,6 +104,7 @@
             background: var(--gradient-3);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero p {
@@ -115,6 +122,11 @@
             color: white;
             font-weight: 600;
             text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
         }
 
         .stats {
@@ -130,6 +142,7 @@
             border-radius: 20px;
             padding: 40px;
             text-align: center;
+            backdrop-filter: blur(10px);
         }
 
         .stat-number {
@@ -138,6 +151,7 @@
             background: var(--gradient-2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .stat-label {
@@ -153,6 +167,7 @@
             background: var(--gradient-1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .bot-status {
@@ -167,9 +182,9 @@
             max-width: 800px;
             margin: 0 auto;
             text-align: center;
+            backdrop-filter: blur(10px);
         }
 
-        /* ✅ 온라인 표시 추가 */
         .status-header {
             display: flex;
             justify-content: center;
@@ -184,6 +199,12 @@
             border-radius: 50%;
             background: #00ff88;
             box-shadow: 0 0 15px rgba(0,255,136,0.6);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         .status-text {
@@ -197,6 +218,7 @@
             background: var(--gradient-3);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-top: 10px;
         }
 
@@ -215,6 +237,13 @@
             border: 1px solid var(--border-glow);
             border-radius: 15px;
             padding: 25px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .command-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(102, 126, 234, 0.6);
         }
 
         .command-name {
@@ -240,6 +269,11 @@
             margin: 0 15px;
             color: var(--text-secondary);
             text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: var(--text-primary);
         }
 
         .invite-button {
@@ -252,6 +286,30 @@
             font-weight: 700;
             text-decoration: none;
             font-size: 1.1rem;
+            transition: transform 0.2s;
+        }
+
+        .invite-button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .commands-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -298,13 +356,10 @@
     <div class="container">
         <h2 class="section-title">봇 상태</h2>
         <div class="status-container">
-
-            <!-- ✅ 온라인 표시 복구 -->
             <div class="status-header">
                 <div class="status-indicator"></div>
                 <div class="status-text">온라인</div>
             </div>
-
             <div>응답 시간</div>
             <div class="status-value">191ms</div>
         </div>
@@ -314,22 +369,63 @@
 <section class="commands">
     <div class="container">
         <h2 class="section-title">명령어</h2>
-
         <div class="commands-grid">
-            <div class="command-item"><div class="command-name">/경고</div><div class="command-desc">사용자에게 경고를 부여합니다</div></div>
-            <div class="command-item"><div class="command-name">/경고삭제</div><div class="command-desc">사용자의 경고를 삭제합니다</div></div>
-            <div class="command-item"><div class="command-name">/경고조회</div><div class="command-desc">사용자의 경고 목록을 확인합니다</div></div>
-            <div class="command-item"><div class="command-name">/공지</div><div class="command-desc">서버에 공지를 전송합니다</div></div>
-            <div class="command-item"><div class="command-name">/뮤트</div><div class="command-desc">사용자를 채팅 금지합니다</div></div>
-            <div class="command-item"><div class="command-name">/언뮤트</div><div class="command-desc">사용자의 뮤트를 해제합니다</div></div>
-            <div class="command-item"><div class="command-name">/밴</div><div class="command-desc">사용자를 서버에서 차단합니다</div></div>
-            <div class="command-item"><div class="command-name">/언밴</div><div class="command-desc">차단된 사용자를 해제합니다</div></div>
-            <div class="command-item"><div class="command-name">/킥</div><div class="command-desc">사용자를 서버에서 추방합니다</div></div>
-            <div class="command-item"><div class="command-command-name">/청소</div><div class="command-desc">메시지를 일괄 삭제합니다</div></div>
-            <div class="command-item"><div class="command-name">/봇정보</div><div class="command-desc">봇의 정보를 확인합니다</div></div>
-            <div class="command-item"><div class="command-name">/설정</div><div class="command-desc">서버 설정을 관리합니다</div></div>
-            <div class="command-item"><div class="command-name">/퀴즈</div><div class="command-desc">퀴즈를 시작합니다</div></div>
-            <div class="command-item"><div class="command-name">/퀴즈랭킹</div><div class="command-desc">퀴즈 랭킹을 확인합니다</div></div>
+            <div class="command-item">
+                <div class="command-name">/경고</div>
+                <div class="command-desc">사용자에게 경고를 부여합니다</div>
+            </div>
+            <div class="command-item">
+                <div class="command-name">/경고삭제</div>
+                <div class="command-desc">사용자의 경고를 삭제합니다</div>
+            </div>
+            <div class="command-item">
+                <div class="command-name">/경고조회</div>
+                <div class="command-desc">사용자의 경고 목록을 확인합니다</div>
+            </div>
+            <div class="command-item">
+                <div class="command-name">/공지</div>
+                <div class="command-desc">서버에 공지를 전송합니다</div>
+            </div>
+            <div class="command-item">
+                <div class="command-name">/뮤트</div>
+                <div class="command-desc">사용자를 채팅 금지합니다</div>
+            </div>
+            <div class="command-item">
+                <div class="command-name">/언뮤트</div>
+                <div class="command-desc">사용자의 뮤트를 해제합니다</div>
+            </div>
+            <div class="command-item">
+                <div class="command-name">/밴</div>
+                <div class="command-desc">사용자를 서버에서 차단합니다</div>
+            </div>
+            <div class="command-item">
+                <div class="command-name">/언밴</div>
+                <div class="command-desc">차단된 사용자를 해제합니다</div>
+            </div>
+            <div class="command-item">
+                <div class="command-name">/킥</div>
+                <div class="command-desc">사용자를 서버에서 추방합니다</div>
+            </div>
+            <div class="command-item">
+                <div class="command-name">/청소</div>
+                <div class="command-desc">메시지를 일괄 삭제합니다</div>
+            </div>
+            <div class="command-item">
+                <div class="command-name">/봇정보</div>
+                <div class="command-desc">봇의 정보를 확인합니다</div>
+            </div>
+            <div class="command-item">
+                <div class="command-name">/설정</div>
+                <div class="command-desc">서버 설정을 관리합니다</div>
+            </div>
+            <div class="command-item">
+                <div class="command-name">/퀴즈</div>
+                <div class="command-desc">퀴즈를 시작합니다</div>
+            </div>
+            <div class="command-item">
+                <div class="command-name">/퀴즈랭킹</div>
+                <div class="command-desc">퀴즈 랭킹을 확인합니다</div>
+            </div>
         </div>
     </div>
 </section>
@@ -347,7 +443,7 @@
         <div style="margin-top:25px;">
             <a href="https://nada-bot.kro.kr/terms" class="footer-link">서비스 이용약관</a>
             <a href="https://nada-bot.kro.kr/privacy" class="footer-link">개인정보처리방침</a>
-            <a href="https://nadabot.kro.kr/faq" class="foorter-link">자주 묻는 질문</a>
+            <a href="https://nadabot.kro.kr/faq" class="footer-link">자주 묻는 질문</a>
         </div>
 
         <p style="margin-top:40px;">© 2026 나다봇. All rights reserved.</p>
