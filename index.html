@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나다봇 - Discord Bot</title>
+    <meta name="description" content="Discord 서버 관리를 위한 최고의 봇, 나다봇. 경고 시스템, 뮤트/밴 관리, 퀴즈 게임 등 다양한 기능을 무료로 제공합니다.">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
@@ -77,6 +78,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            cursor: pointer;
         }
 
         .nav-button {
@@ -86,11 +88,13 @@
             color: white;
             font-weight: 600;
             text-decoration: none;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(250, 112, 154, 0.3);
         }
 
         .nav-button:hover {
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(250, 112, 154, 0.5);
         }
 
         .hero {
@@ -105,6 +109,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            margin-bottom: 0;
         }
 
         .hero p {
@@ -122,11 +127,13 @@
             color: white;
             font-weight: 600;
             text-decoration: none;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
         .cta-button:hover {
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
         }
 
         .stats {
@@ -143,6 +150,12 @@
             padding: 40px;
             text-align: center;
             backdrop-filter: blur(10px);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(102, 126, 234, 0.5);
         }
 
         .stat-number {
@@ -157,6 +170,7 @@
         .stat-label {
             margin-top: 10px;
             color: var(--text-secondary);
+            font-size: 1.1rem;
         }
 
         .section-title {
@@ -212,6 +226,12 @@
             font-weight: 700;
         }
 
+        .status-label {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
         .status-value {
             font-size: 2rem;
             font-weight: 800;
@@ -238,12 +258,13 @@
             border-radius: 15px;
             padding: 25px;
             backdrop-filter: blur(10px);
-            transition: transform 0.2s, border-color 0.2s;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
         }
 
         .command-item:hover {
             transform: translateY(-5px);
             border-color: rgba(102, 126, 234, 0.6);
+            box-shadow: 0 5px 20px rgba(79, 172, 254, 0.2);
         }
 
         .command-name {
@@ -256,6 +277,7 @@
         .command-desc {
             margin-top: 8px;
             color: var(--text-secondary);
+            font-size: 0.95rem;
         }
 
         footer {
@@ -265,15 +287,28 @@
             margin-top: 80px;
         }
 
+        footer > .container > p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .footer-links {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
         .footer-link {
-            margin: 0 15px;
             color: var(--text-secondary);
             text-decoration: none;
             transition: color 0.2s;
+            font-size: 0.95rem;
         }
 
         .footer-link:hover {
-            color: var(--text-primary);
+            color: #4facfe;
         }
 
         .invite-button {
@@ -286,11 +321,13 @@
             font-weight: 700;
             text-decoration: none;
             font-size: 1.1rem;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
 
         .invite-button:hover {
             transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
         }
 
         /* 반응형 디자인 */
@@ -310,6 +347,26 @@
             .commands-grid {
                 grid-template-columns: 1fr;
             }
+
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 부드러운 스크롤 */
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 </head>
@@ -360,7 +417,7 @@
                 <div class="status-indicator"></div>
                 <div class="status-text">온라인</div>
             </div>
-            <div>응답 시간</div>
+            <div class="status-label">응답 시간</div>
             <div class="status-value">191ms</div>
         </div>
     </div>
@@ -436,17 +493,18 @@
 
         <a href="https://discord.com/api/oauth2/authorize?client_id=1463689452730847262&permissions=8&scope=bot%20applications.commands"
            class="invite-button"
-           target="_blank">
+           target="_blank"
+           rel="noopener noreferrer">
            서버에 추가하기
         </a>
 
-        <div style="margin-top:25px;">
-            <a href="https://nada-bot.kro.kr/terms" class="footer-link">서비스 이용약관</a>
-            <a href="https://nada-bot.kro.kr/privacy" class="footer-link">개인정보처리방침</a>
+        <div class="footer-links">
+            <a href="https://nadabot.kro.kr/terms" class="footer-link">서비스 이용약관</a>
+            <a href="https://nadabot.kro.kr/privacy" class="footer-link">개인정보처리방침</a>
             <a href="https://nadabot.kro.kr/faq" class="footer-link">자주 묻는 질문</a>
         </div>
 
-        <p style="margin-top:40px;">© 2026 나다봇. All rights reserved.</p>
+        <p style="margin-top:40px; color: var(--text-secondary); font-size: 0.9rem;">© 2026 나다봇. All rights reserved.</p>
     </div>
 </footer>
 
